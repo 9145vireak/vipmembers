@@ -1,1 +1,1 @@
-Simple bot with ABA payment and VIP channel button. No OCR, no confirmation required.
+Telegram bot with OCR slip verification for ABA payments. Upload slip, verify $0.50, then grant VIP access.

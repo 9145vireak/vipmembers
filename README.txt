@@ -1,1 +1,1 @@
-Bot with ABA Pay and VIP button (no OCR). Deploy as background worker.
+Simple bot with ABA payment and VIP channel button. No OCR, no confirmation required.

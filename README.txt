@@ -1,4 +1,1 @@
-Bot with OCR + VIP Join Button.
-Deploy as background worker.
-Build: pip install -r requirements.txt
-Run: python main.py
+Bot with ABA Pay and VIP button (no OCR). Deploy as background worker.

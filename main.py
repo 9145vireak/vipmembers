@@ -12,7 +12,8 @@ dp = Dispatcher(bot)
 async def welcome(message: types.Message):
     keyboard = types.InlineKeyboardMarkup()
     keyboard.add(types.InlineKeyboardButton("បង់លុយ $0.50", url="https://pay.ababank.com/AZGf2mpuTsw2bVtV8"))
-    await message.reply("សូមបង់ប្រាក់ $0.50 ដោយស្កេន QR ឬចុចប៊ូតុងខាងក្រោម។\nបន្ទាប់មក បញ្ចូនរូប slip មកទីនេះ។", reply_markup=keyboard)
+    with open("qr_code.png", "rb") as qr:
+        await message.reply_photo(qr, caption="សូមបង់ប្រាក់ $0.50 ឬ ៛2000 ដោយស្កេន QR ឬចុចប៊ូតុងខាងក្រោម។\nបន្ទាប់មក បញ្ចូនរូប slip មកទីនេះ។", reply_markup=keyboard)
 
 @dp.message_handler(content_types=['photo'])
 async def process_slip(message: types.Message):
@@ -26,12 +27,12 @@ async def process_slip(message: types.Message):
         image = Image.open(photo_path)
         text = pytesseract.image_to_string(image)
 
-        if "0.50" in text or "0.5" in text:
+        if ("0.50" in text and "USD" in text) or ("2000" in text and "KHR" in text):
             keyboard = types.InlineKeyboardMarkup()
             keyboard.add(types.InlineKeyboardButton("ចូល VIP", url=VIP_LINK))
             await message.reply("✅ បង់ប្រាក់ត្រឹមត្រូវ!\nចូល VIP Channel:", reply_markup=keyboard)
         else:
-            await message.reply("❌ Slip មិនមានប្រាក់ $0.50 សូមពិនិត្យឡើងវិញ។")
+            await message.reply("❌ Slip មិនមានចំនួនប្រាក់ត្រឹមត្រូវ ($0.50 ឬ ៛2000)។ សូមពិនិត្យឡើងវិញ។")
     except Exception as e:
         await message.reply("❌ មានបញ្ហាក្នុងការអាន slip។ សូមសាកល្បងម្ដងទៀត។")
 
